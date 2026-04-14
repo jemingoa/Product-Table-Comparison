@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Table Comparison</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 60%;
+  border-radius: 15px;
+  border-color: crimson;
+}
+
+th, td {
+  border: 1px solid rgb(44, 147, 155);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+button {
+  margin: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color: aquamarine;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Product Table Comparison</h2>
+
+<button onclick="loadInnerHTML()">Load using innerHTML</button>
+<button onclick="loadDOM()">Load using DOM Method</button>
+<button onclick="clearTable()">Clear Table</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<p id="methodUsed"></p>
+
+<script>
+// PRODUCT DATA
+const products = [
+  { name: "Laptop", price: 45000, category: "Electronics" },
+  { name: "Phone", price: 20000, category: "Electronics" },
+  { name: "Table", price: 5000, category: "Furniture" },
+  { name: "Chair", price: 1500, category: "Furniture" },
+  { name: "Notebook", price: 50, category: "School Supplies" }
+];
+
+// INNER HTML METHOD
+function loadInnerHTML() {
+  let rows = "";
+
+  products.forEach(p => {
+    rows += `
+      <tr>
+        <td>${p.name}</td>
+        <td>${p.price}</td>
+        <td>${p.category}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("tableBody").innerHTML = rows;
+  document.getElementById("methodUsed").innerText = "Method Used: innerHTML";
+
+  console.log("Loaded using innerHTML");
+}
+
+// DOM METHOD
+function loadDOM() {
+  const tbody = document.getElementById("tableBody");
+  tbody.innerHTML = ""; // clear first
+
+  products.forEach(p => {
+    const tr = document.createElement("tr");
+
+    const td1 = document.createElement("td");
+    td1.textContent = p.name;
+
+    const td2 = document.createElement("td");
+    td2.textContent = p.price;
+
+    const td3 = document.createElement("td");
+    td3.textContent = p.category;
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("methodUsed").innerText = "Method Used: Direct DOM";
+
+  console.log("Loaded using DOM");
+}
+
+// CLEAR TABLE
+function clearTable() {
+  document.getElementById("tableBody").innerHTML = "";
+  document.getElementById("methodUsed").innerText = "";
+  console.log("Table cleared");
+}
+</script>
+
+</body>
+</html>
